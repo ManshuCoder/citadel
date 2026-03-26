@@ -1,0 +1,25 @@
+---
+title: "Designing resilient execution systems"
+description: "Latency budgets, failure domains, and what “reliability” really means in practice."
+date: "2026-02-18"
+tags: ["Engineering", "Reliability", "Execution"]
+---
+
+Resiliency is not a single feature—it’s a posture. In execution systems, that posture is expressed through explicit trade-offs: what you optimize for, what you degrade first, and what you refuse to compromise.
+
+## Start with a latency budget
+
+Latency budgets are constraints, not goals. A budget forces clarity:
+
+- Where do you spend time?
+- What can you cache?
+- What can fail safely?
+
+## Treat failure domains as product boundaries
+
+If one dependency can take you down, it isn’t a dependency—it’s a single point of failure you haven’t admitted yet.
+
+## Operational hygiene is a user experience
+
+Incident reviews, dashboards, and alerts aren’t “internal tooling.” They are the interface between reality and your system.
+
