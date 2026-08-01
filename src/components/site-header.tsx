@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { Menu, Search } from "lucide-react";
 
 export function SiteHeader() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <header className="sticky top-0 z-50 border-b border-white/[0.07] bg-[#111310]/90 text-[#f5f5ef] backdrop-blur-xl">
       <a
@@ -48,12 +51,37 @@ export function SiteHeader() {
           <button
             type="button"
             aria-label="Open menu"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
+            onClick={() => setMenuOpen((open) => !open)}
             className="flex size-10 items-center justify-center rounded-full text-white/70 lg:hidden"
           >
             <Menu className="size-5" />
           </button>
         </div>
       </div>
+      {menuOpen && (
+        <nav
+          id="mobile-navigation"
+          className="chess-shell grid gap-1 border-t border-white/[0.07] py-3 lg:hidden"
+        >
+          {[
+            ["Play", "#play"],
+            ["Puzzles", "#puzzles"],
+            ["Community", "#community"],
+            ["Learn", "#learn"],
+          ].map(([label, href]) => (
+            <a
+              key={href}
+              href={href}
+              onClick={() => setMenuOpen(false)}
+              className="rounded-xl px-3 py-3 text-sm font-bold text-white/60 transition-colors hover:bg-white/[0.06] hover:text-white"
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+      )}
     </header>
   );
 }

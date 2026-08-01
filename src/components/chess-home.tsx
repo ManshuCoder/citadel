@@ -53,7 +53,7 @@ const players = [
 
 export function ChessHome() {
   const [board, setBoard] = useState<string[][]>(() =>
-    initialBoard.map((row) => [...row]),
+    puzzleBoard.map((row) => [...row]),
   );
   const [selected, setSelected] = useState<[number, number] | null>(null);
   const [solved, setSolved] = useState(false);
@@ -210,7 +210,7 @@ export function ChessHome() {
 
       <section id="puzzles" className="bg-[#eeeee6] py-24 text-[#171914]">
         <div className="chess-shell grid items-center gap-14 lg:grid-cols-2">
-          <div className="order-2 lg:order-1">
+          <div id="learn" className="order-2 scroll-mt-28 lg:order-1">
             <div className="max-w-md">
               <p className="eyebrow !text-[#668400]">Daily challenge</p>
               <h2 className="section-title !text-[#171914]">
