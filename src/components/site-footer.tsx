@@ -1,61 +1,65 @@
-"use client";
-
 import Link from "next/link";
-
-import { site } from "@/lib/site";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border bg-background">
-      <div className="container py-12">
-        <div className="grid gap-10 md:grid-cols-12">
-          <div className="md:col-span-4">
-            <div className="text-sm font-semibold tracking-tight">
-              <span className="font-[var(--font-display)] text-base">Apex</span>{" "}
-              <span className="text-muted-foreground">Markets</span>
-            </div>
-            <p className="mt-3 text-sm text-muted-foreground">
-              Premium, modern financial services—built as a demo site inspired
-              by institutional design language, without copying branding or
-              content.
+    <footer className="bg-[#111310] text-[#f5f5ef]">
+      <div className="chess-shell py-14">
+        <div className="grid gap-12 border-b border-white/[0.08] pb-12 md:grid-cols-[1.2fr_2fr]">
+          <div>
+            <Link href="/" className="inline-flex items-center gap-2.5">
+              <span className="flex size-9 items-center justify-center rounded-xl bg-[#b6e33d] text-2xl text-[#182006]">
+                ♞
+              </span>
+              <span className="font-(--font-display) text-xl font-bold">Knightly</span>
+            </Link>
+            <p className="mt-4 max-w-xs text-sm leading-6 text-white/35">
+              The modern home for players, learners, and lifelong lovers of chess.
             </p>
           </div>
 
-          <div className="grid gap-8 md:col-span-8 md:grid-cols-3">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
             <FooterColumn
-              title="Company"
+              title="Play"
               links={[
-                { href: "/about", label: "About" },
-                { href: "/technology", label: "Technology" },
-                { href: "/insights", label: "Insights" },
+                { href: "#play", label: "Live chess" },
+                { href: "#play", label: "Daily chess" },
+                { href: "#play", label: "Play a bot" },
               ]}
             />
             <FooterColumn
-              title="Careers"
+              title="Learn"
               links={[
-                { href: "/careers", label: "Open roles" },
-                { href: "/careers#benefits", label: "Benefits" },
+                { href: "#puzzles", label: "Puzzles" },
+                { href: "#learn", label: "Lessons" },
+                { href: "#learn", label: "Openings" },
               ]}
             />
             <FooterColumn
-              title="Contact"
+              title="Connect"
               links={[
-                { href: "/contact", label: "Request a conversation" },
-                { href: site.links.linkedin, label: "LinkedIn", external: true },
-                { href: site.links.x, label: "X", external: true },
+                { href: "#community", label: "Community" },
+                { href: "#community", label: "Clubs" },
+                { href: "#community", label: "Leaderboard" },
+              ]}
+            />
+            <FooterColumn
+              title="Knightly"
+              links={[
+                { href: "/", label: "About" },
+                { href: "/", label: "Support" },
+                { href: "/", label: "Careers" },
               ]}
             />
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-border pt-6 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
-          <p>
-            © {new Date().getFullYear()} {site.legalName}. All rights reserved.
-          </p>
-          <p>
-            This is a sample project. Not an offer, solicitation, or financial
-            advice.
-          </p>
+        <div className="flex flex-col gap-3 pt-6 text-xs text-white/25 sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} Knightly. Play boldly.</p>
+          <div className="flex gap-5">
+            <a href="#" className="hover:text-white/60">Privacy</a>
+            <a href="#" className="hover:text-white/60">Terms</a>
+            <a href="#" className="hover:text-white/60">Cookies</a>
+          </div>
         </div>
       </div>
     </footer>
@@ -67,19 +71,19 @@ function FooterColumn({
   links,
 }: {
   title: string;
-  links: { href: string; label: string; external?: boolean }[];
+  links: { href: string; label: string }[];
 }) {
   return (
     <div>
-      <div className="text-sm font-medium">{title}</div>
-      <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+      <div className="text-xs font-extrabold uppercase tracking-[0.15em] text-white/65">
+        {title}
+      </div>
+      <ul className="mt-4 space-y-3 text-sm text-white/35">
         {links.map((l) => (
-          <li key={l.href}>
+          <li key={`${l.href}-${l.label}`}>
             <Link
               href={l.href}
-              target={l.external ? "_blank" : undefined}
-              rel={l.external ? "noreferrer" : undefined}
-              className="transition-colors hover:text-foreground"
+              className="transition-colors hover:text-white"
             >
               {l.label}
             </Link>
