@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  color-scheme: light;
-  --background: 0 0% 100%;
-  --foreground: 222 47% 11%;
-  --muted: 210 40% 96%;
-  --muted-foreground: 215 16% 47%;
-  --border: 214 32% 91%;
-  --ring: 221 83% 53%;
-  --card: 0 0% 100%;
-  --card-foreground: 222 47% 11%;
-  --accent: 215 100% 50%;
-  --accent-foreground: 0 0% 100%;
+  color-scheme: dark;
+  --background: 90 8% 7%;
+  --foreground: 60 23% 95%;
+  --muted: 90 7% 12%;
+  --muted-foreground: 72 5% 60%;
+  --border: 80 7% 18%;
+  --ring: 75 75% 56%;
+  --card: 90 8% 10%;
+  --card-foreground: 60 23% 95%;
+  --accent: 75 75% 56%;
+  --accent-foreground: 75 80% 8%;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -45,19 +45,170 @@ body {
 
 .dark {
   color-scheme: dark;
-  --background: 222 47% 6%;
-  --foreground: 210 40% 98%;
-  --muted: 222 47% 10%;
-  --muted-foreground: 215 16% 65%;
-  --border: 222 47% 14%;
-  --ring: 217 91% 60%;
-  --card: 222 47% 8%;
-  --card-foreground: 210 40% 98%;
-  --accent: 215 100% 58%;
-  --accent-foreground: 0 0% 100%;
 }
 
 ::selection {
   background: hsl(var(--accent) / 0.25);
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+.chess-shell {
+  width: min(100% - 2.5rem, 1280px);
+  margin-inline: auto;
+}
+
+.nav-link {
+  position: relative;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: rgb(255 255 255 / 0.5);
+  transition: color 180ms ease;
+}
+
+.nav-link:hover {
+  color: white;
+}
+
+.nav-link::after {
+  position: absolute;
+  right: 0;
+  bottom: -8px;
+  left: 0;
+  height: 2px;
+  content: "";
+  background: #b6e33d;
+  border-radius: 999px;
+  transform: scaleX(0);
+  transition: transform 180ms ease;
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+.hero-glow {
+  position: absolute;
+  z-index: -1;
+  top: -18rem;
+  right: -14rem;
+  width: 58rem;
+  height: 58rem;
+  pointer-events: none;
+  background:
+    radial-gradient(circle, rgb(182 227 61 / 0.12) 0%, transparent 62%),
+    repeating-radial-gradient(circle, transparent 0 24px, rgb(255 255 255 / 0.015) 25px 26px);
+}
+
+.lime-button,
+.dark-button {
+  display: inline-flex;
+  height: 3.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border-radius: 999px;
+  padding-inline: 1.5rem;
+  font-size: 0.9375rem;
+  font-weight: 800;
+  transition: transform 180ms ease, background-color 180ms ease;
+}
+
+.lime-button {
+  color: #172005;
+  background: #b6e33d;
+  box-shadow: 0 12px 35px rgb(182 227 61 / 0.14);
+}
+
+.lime-button:hover,
+.dark-button:hover {
+  transform: translateY(-2px);
+}
+
+.dark-button {
+  color: rgb(255 255 255 / 0.8);
+  background: rgb(255 255 255 / 0.07);
+  border: 1px solid rgb(255 255 255 / 0.09);
+}
+
+.dark-button:hover {
+  background: rgb(255 255 255 / 0.11);
+}
+
+.chess-card {
+  border: 1px solid rgb(255 255 255 / 0.09);
+  border-radius: 1.75rem;
+  background: #1b1e19;
+  box-shadow: 0 50px 100px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.25);
+}
+
+.chess-piece {
+  display: inline-block;
+  color: #191c17;
+  font-family: "Times New Roman", serif;
+  filter: drop-shadow(0 2px 0 rgb(255 255 255 / 0.18));
+  transform: translateY(-2%);
+}
+
+.eyebrow {
+  margin-bottom: 0.75rem;
+  color: #b6e33d;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.section-title {
+  max-width: 42rem;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(2.6rem, 5vw, 4.5rem);
+  font-weight: 650;
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.mode-card {
+  min-height: 15rem;
+  padding: 1.5rem;
+  border: 1px solid rgb(255 255 255 / 0.075);
+  border-radius: 1.5rem;
+  background: rgb(255 255 255 / 0.025);
+  transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+.mode-card:hover {
+  border-color: rgb(182 227 61 / 0.35);
+  background: rgb(255 255 255 / 0.045);
+  transform: translateY(-4px);
+}
+
+@media (max-width: 640px) {
+  .chess-shell {
+    width: min(100% - 2rem, 1280px);
+  }
+
+  .chess-card {
+    border-radius: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 

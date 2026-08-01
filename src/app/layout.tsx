@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Manrope } from "next/font/google";
+import { Manrope, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -9,7 +9,7 @@ const fontSans = Manrope({
   display: "swap",
 });
 
-const fontDisplay = Fraunces({
+const fontDisplay = Space_Grotesk({
   variable: "--font-display",
   subsets: ["latin"],
   display: "swap",
@@ -23,17 +23,17 @@ const siteUrl =
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Apex Markets",
-    template: "%s | Apex Markets",
+    default: "Knightly — Play chess. Get better.",
+    template: "%s | Knightly",
   },
   description:
-    "Institutional-grade market intelligence, execution, and technology—built for resiliency, transparency, and speed.",
+    "Play live chess, solve daily puzzles, improve your game, and join a worldwide community of players.",
   openGraph: {
-    title: "Apex Markets",
+    title: "Knightly — Play chess. Get better.",
     description:
-      "Institutional-grade market intelligence, execution, and technology—built for resiliency, transparency, and speed.",
+      "Play live chess, solve daily puzzles, and join a worldwide community of players.",
     url: siteUrl,
-    siteName: "Apex Markets",
+    siteName: "Knightly",
     type: "website",
   },
   robots: { index: true, follow: true },
@@ -53,8 +53,8 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col font-sans">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="dark"
+          enableSystem={false}
           disableTransitionOnChange
         >
           {children}

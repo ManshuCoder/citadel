@@ -1,172 +1,88 @@
 "use client";
 
-import * as React from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import * as NavigationMenu from "@radix-ui/react-navigation-menu";
-import { ChevronDown } from "lucide-react";
-
-import { cn } from "@/lib/utils";
-import { ThemeToggle } from "@/components/theme-toggle";
-
-const companyLinks = [
-  {
-    title: "About",
-    href: "/about",
-    description: "Mission, leadership principles, and how we operate.",
-  },
-  {
-    title: "Technology",
-    href: "/technology",
-    description: "Infrastructure, reliability, and engineering culture.",
-  },
-] as const;
+import { Menu, Search } from "lucide-react";
 
 export function SiteHeader() {
-  const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/70 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-white/[0.07] bg-[#111310]/90 text-[#f5f5ef] backdrop-blur-xl">
       <a
         href="#content"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-50 focus:rounded-full focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:ring-2 focus:ring-ring"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:text-black"
       >
         Skip to content
       </a>
 
-      <div className="container flex h-16 items-center justify-between">
-        <Link href="/" className="group inline-flex items-center gap-2">
-          <span className="text-sm font-semibold tracking-tight">
-            <span className="font-(--font-display) text-base tracking-tight">
-              Apex
-            </span>{" "}
-            <span className="text-muted-foreground">Markets</span>
-          </span>
-        </Link>
-
-        <div className="flex items-center gap-2">
-          <NavigationMenu.Root className="hidden md:block">
-            <NavigationMenu.List className="flex items-center gap-1">
-              <NavItemDropdown
-                label="Company"
-                active={pathname === "/about" || pathname === "/technology"}
-              >
-                <div className="grid w-[520px] grid-cols-2 gap-2 p-2">
-                  {companyLinks.map((item) => (
-                    <NavCardLink key={item.href} {...item} />
-                  ))}
-                  <div className="col-span-2 rounded-2xl border border-border bg-muted/40 p-4">
-                    <p className="text-sm font-medium">Built for durability</p>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      A premium, modern financial services experience—without
-                      copying any real-world branding or content.
-                    </p>
-                  </div>
-                </div>
-              </NavItemDropdown>
-
-              <NavItemLink href="/insights" active={pathname?.startsWith("/insights")}>
-                Insights
-              </NavItemLink>
-
-              <NavItemLink href="/careers" active={pathname === "/careers"}>
-                Careers
-              </NavItemLink>
-
-              <NavItemLink href="/contact" active={pathname === "/contact"}>
-                Contact
-              </NavItemLink>
-            </NavigationMenu.List>
-
-            <NavigationMenu.Viewport className="data-[state=open]:animate-in data-[state=closed]:animate-out absolute left-1/2 top-[60px] w-(--radix-navigation-menu-viewport-width) -translate-x-1/2 overflow-hidden rounded-3xl border border-border bg-background shadow-lg" />
-          </NavigationMenu.Root>
-
-          <ThemeToggle />
-
-          <Link
-            href="/contact"
-            className="hidden rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground shadow-sm transition-colors hover:bg-accent/90 md:inline-flex"
-          >
-            Request a conversation
+      <div className="chess-shell flex h-[76px] items-center justify-between">
+        <div className="flex items-center gap-10">
+          <Link href="/" className="group inline-flex items-center gap-2.5">
+            <span className="relative flex size-9 items-center justify-center rounded-xl bg-[#b6e33d] text-2xl text-[#182006] transition-transform group-hover:-rotate-6">
+              ♞
+            </span>
+            <span className="font-(--font-display) text-xl font-bold tracking-[-0.04em]">
+              Knightly
+            </span>
           </Link>
+          <nav className="hidden items-center gap-7 lg:flex">
+            <a href="#play" className="nav-link">Play</a>
+            <a href="#puzzles" className="nav-link">Puzzles</a>
+            <a href="#community" className="nav-link">Community</a>
+            <a href="#learn" className="nav-link">Learn</a>
+          </nav>
+        </div>
+
+        <div className="flex items-center gap-2 sm:gap-3">
+          <button
+            type="button"
+            aria-label="Search"
+            className="hidden size-10 items-center justify-center rounded-full text-white/55 transition-colors hover:bg-white/10 hover:text-white sm:flex"
+          >
+            <Search className="size-4" />
+          </button>
+          <button className="hidden h-10 items-center px-3 text-sm font-bold text-white/60 hover:text-white sm:inline-flex">
+            Log in
+          </button>
+          <button className="h-10 rounded-full bg-[#b6e33d] px-5 text-sm font-extrabold text-[#182006] transition-transform hover:-translate-y-0.5">
+            Sign up
+          </button>
+          <button
+            type="button"
+            aria-label="Open menu"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
+            onClick={() => setMenuOpen((open) => !open)}
+            className="flex size-10 items-center justify-center rounded-full text-white/70 lg:hidden"
+          >
+            <Menu className="size-5" />
+          </button>
         </div>
       </div>
-    </header>
-  );
-}
-
-function NavItemLink({
-  href,
-  active,
-  children,
-}: {
-  href: string;
-  active?: boolean;
-  children: React.ReactNode;
-}) {
-  return (
-    <NavigationMenu.Item>
-      <NavigationMenu.Link asChild>
-        <Link
-          href={href}
-          className={cn(
-            "inline-flex h-10 items-center rounded-full px-4 text-sm font-medium text-foreground/80 transition-colors hover:bg-muted/60 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-            active && "bg-muted/60 text-foreground",
-          )}
+      {menuOpen && (
+        <nav
+          id="mobile-navigation"
+          className="chess-shell grid gap-1 border-t border-white/[0.07] py-3 lg:hidden"
         >
-          {children}
-        </Link>
-      </NavigationMenu.Link>
-    </NavigationMenu.Item>
-  );
-}
-
-function NavItemDropdown({
-  label,
-  active,
-  children,
-}: {
-  label: string;
-  active?: boolean;
-  children: React.ReactNode;
-}) {
-  return (
-    <NavigationMenu.Item>
-      <NavigationMenu.Trigger
-        className={cn(
-          "inline-flex h-10 items-center gap-1 rounded-full px-4 text-sm font-medium text-foreground/80 transition-colors hover:bg-muted/60 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-          active && "bg-muted/60 text-foreground",
-        )}
-      >
-        {label}
-        <ChevronDown className="size-4 text-muted-foreground" aria-hidden="true" />
-      </NavigationMenu.Trigger>
-      <NavigationMenu.Content className="data-[motion=from-start]:animate-in data-[motion=from-end]:animate-in data-[motion=to-start]:animate-out data-[motion=to-end]:animate-out">
-        {children}
-      </NavigationMenu.Content>
-    </NavigationMenu.Item>
-  );
-}
-
-function NavCardLink({
-  title,
-  href,
-  description,
-}: {
-  title: string;
-  href: string;
-  description: string;
-}) {
-  return (
-    <NavigationMenu.Link asChild>
-      <Link
-        href={href}
-        className="group rounded-2xl border border-border bg-card p-4 transition-colors hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-      >
-        <div className="text-sm font-medium">{title}</div>
-        <div className="mt-1 text-sm text-muted-foreground">{description}</div>
-      </Link>
-    </NavigationMenu.Link>
+          {[
+            ["Play", "#play"],
+            ["Puzzles", "#puzzles"],
+            ["Community", "#community"],
+            ["Learn", "#learn"],
+          ].map(([label, href]) => (
+            <a
+              key={href}
+              href={href}
+              onClick={() => setMenuOpen(false)}
+              className="rounded-xl px-3 py-3 text-sm font-bold text-white/60 transition-colors hover:bg-white/[0.06] hover:text-white"
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+      )}
+    </header>
   );
 }
 
