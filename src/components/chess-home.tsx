@@ -12,7 +12,6 @@ import {
   Puzzle,
   RotateCcw,
   Sparkles,
-  Swords,
   Trophy,
   Users,
   Zap,
